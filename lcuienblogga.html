@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+
+  <title>P.O.U.H.A</title>
+  <style>
+    body {
+      text-align: center;
+      background: url("https://steamuserimages-a.akamaihd.net/ugc/1013814147742937450/79774415E402C5C8C5501125409664268764E1ED/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false");
+      background-size: cover;
+      background-position: center;
+      color:silver;
+      font-family:'DotGothic16';
+    }
+    p {
+      font-size: 22px;
+      background:;
+     
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+       font-family:'Didact Gothic';
+    }
+    input[type="submit"] {
+      background: black;
+      color: crimson;
+      font-family:'League Gothic';
+      
+    }
+    img {
+      width:200px;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://media.tenor.com/-JtyqSDAvU4AAAAd/hero-stain.gif">
+  <p>Hi! I'm Lucien, a Jamaica Gateway to the Sciences student, welcome to my website.</p>
+  <input id="Name" placeholder="Your Name">
+  <input id="Email" placeholder="Your Email">
+  <input id= "submit" type="Submit">
+
+ 
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+	import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBg1Dvbfjx5buiai8Lcn8D60dK1UEQT6VM",
+      authDomain: "lucienweb1.firebaseapp.com",
+      projectId: "lucienweb1",
+      storageBucket: "lucienweb1.appspot.com",
+      messagingSenderId: "472891351724",
+      appId: "1:472891351724:web:1452fc74518d279962f509"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+	const db = getDatabase(app);
+	const Name = document.querySelector("#Name") 
+	const Email = document.querySelector("#Email")
+	document.querySelector('#submit').addEventListener('click', Submit)
+	
+	function Submit() {
+	  const timestamp = buildTimestamp()
+	  
+	  set(ref(db, timestamp), {
+		  Name: Name.value,
+	      email: Email.value,
+	  });
+
+	  Name.value = ""
+	  Email.value = ""
+	}
+	
+	function buildTimestamp() {
+	  const now = new Date();
+	  let timestamp = now.getFullYear().toString() + "/";
+	  //const month = now.toLocaleString('default', { month: 'long' });
+
+	  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+	  month = month.toString()
+	  month = addLeadingZero(month)
+	  timestamp += month + "/"; 
+
+	  let date = now.getDate().toString()
+	  date = addLeadingZero(date)
+	  timestamp += date + "/";
+
+	  let hours = now.getHours().toString()
+	  hours = addLeadingZero(hours)
+	  timestamp += hours + ":";
+
+	  let minutes = now.getMinutes().toString()
+	  minutes = addLeadingZero(minutes)
+	  timestamp += minutes + ":";
+
+	  let seconds = now.getSeconds().toString()
+	  seconds = addLeadingZero(seconds)
+	  timestamp += seconds;
+  
+	  return timestamp
+	}
+	
+	function addLeadingZero(units) {
+		if (units.length < 2) {
+			units = "0" + units
+		}
+		return units
+	}
+	
+	
+  </script>
+
+</body>
